@@ -1,0 +1,199 @@
+*{
+    box-sizing: border-box;
+}
+
+body{
+    margin: 0%;
+    background-color: rgb(190, 130, 247);
+    color: white;
+}
+
+.header{
+    background-color: rgb(48, 2, 48);
+}
+
+nav{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 85px;
+}
+
+.hangman-title{
+    margin: 0%;
+    height: 65px;
+    display: flex;
+}
+
+.title{
+    color: white;
+}
+
+.nav-img{
+    height: 65px;
+}
+
+.username{
+    background-color: rgb(208, 170, 243);
+    width: 250px;
+    height: 30px;
+    border-radius: 1rem;
+    margin-right: 20px;
+    text-align: right;
+    color: white;
+}
+
+.gamethemecontainer{
+    margin-top: 40px;
+    text-align: center; 
+}
+
+.gametitle {
+    display: flex;
+    justify-content: center; /* Center aligns the h1 */
+    align-items: center;
+    position: relative;
+    width: 100%;
+    padding: 10px;
+}
+
+/* Ensures h1 stays centered */
+.gametitle h1 {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    margin: 0;
+}
+
+/* Positions button to the right */
+.gametitle .back {
+    margin-left: auto;
+    position: absolute;
+    right: 50px;
+    width: 20vh;
+    border-radius: 1rem;
+    background-color:rgb(190, 130, 247);
+    font-size: 2rem;
+    color: white;
+}
+
+.title-desc{
+    font-size: 1.3rem;
+}
+
+.menu-container{
+    margin-top: 50px;
+    display: grid;
+    justify-content: center;
+    gap: 50px;
+    grid-template-rows: 1fr 1fr 1fr ;
+}
+
+.play{
+    width: 300px;
+    border-radius: 1rem;
+    background-color: rgb(208, 170, 243);
+    font-size: 2rem;
+    color: white;
+}
+
+.highscore{
+    width: 300px;
+    border-radius: 1rem;
+    background-color: rgb(208, 170, 243);
+    font-size: 2rem;
+    color: white;
+}
+
+.volume-toggle{
+    border: none;
+    background: transparent;
+}
+
+.volume-toggle-img{
+    width: 80px;
+}
+
+.fillblanks{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 30px;
+}
+
+.blanksinput{
+    margin: 5px;
+    width: 50px;
+    height: 50px;
+}
+
+.key-container{
+    border: 4px solid rgb(48, 2, 48);
+    min-width: 12vh;
+    margin-left: 30vh;
+    margin-right: 30vh;
+    margin-top: 5px;
+    text-align: center;
+}
+
+.keyelement{
+    width: 10vh;
+    border-radius: 1rem;
+    font-size: 2rem;
+    color: white;
+    margin: 5px;
+    cursor: pointer;
+}
+
+.penalty-container{
+    border: 4px solid rgb(48, 2, 48);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    margin-left: 30vh;
+    margin-right: 30vh;
+}
+
+.penalty{
+    border: 2px solid black;
+    background-color:rgb(190, 130, 247);
+    margin: 10px;
+    padding: 10px;
+    color: white;
+    font-size: 1.5rem;
+}
+
+.win-container{
+    border: 1px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 30vh;
+    margin-right: 30vh;
+    margin-bottom: 10px;
+    font-size: 2rem;
+    background-color: #10A95B;
+}
+.lose-container{
+    border: 1px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 30vh;
+    margin-right: 30vh;
+    margin-bottom: 10px;
+    font-size: 2rem;
+    background-color: #BA2A2A;
+}
+.taunt-container{
+    border: 1px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 30vh;
+    margin-right: 30vh;
+    margin-bottom: 10px;
+    font-size: 2rem;
+    background-color:rgb(208, 170, 243);
+}
