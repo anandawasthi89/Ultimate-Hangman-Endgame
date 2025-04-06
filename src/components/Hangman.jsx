@@ -1,28 +1,39 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Blanks } from "./Blanks";
 import { KeyElement } from "./KeyElement";
 import { Penalty } from "./Penalty";
 import { nanoid } from 'nanoid';
 import Confetti from 'react-confetti';
+import ChallengeWords from "./ChallengeWords";
 
-export function Hangman() {
+export function Hangman({ wordsData, updateWordsData }) {
 
     let matched = false
 
     const [failRound, setFailRound] = useState(0)
 
-    const [blanks, setBlanks] = useState([
-        { value: 'B', display: false },
-        { value: 'L', display: false },
-        { value: 'O', display: false },
-        { value: 'O', display: false },
-        { value: 'D', display: false }])
+    console.log(failRound)
+
+    const [blanks, setBlanks] = useState([])
 
     const [keyboard, setKeyboard] = useState(generateKeyArray)
 
-    const gamewon = failRound < 8 && blanks.every(blank => blank.display === true)
+    const gamewon = failRound < 8 && blanks.length > 0 ? blanks.every(blank => blank.display === true) : false
 
     const gamelost = failRound === 8
+
+    const roundOver = wordsData.every(word=>word.points!==0)
+
+    useEffect(() => {
+        console.log("gamewon: ", gamewon)
+        console.log("gamelost: ", gamelost)
+        console.log("blanks: ", blanks)
+        if (blanks.length === 0 || gamewon || gamelost) {
+            const newBlanks = SetupNewGame();
+            setBlanks(newBlanks);
+        }
+
+    }, [wordsData, gamewon, gamelost]);
 
     const penaltyList = [
         { id: 1, value: "html" },
@@ -56,6 +67,17 @@ export function Hangman() {
             index++
             return { value: String.fromCharCode(index), correct: null }
         }
+        )
+    }
+
+    function generateChallengeDisplay() {
+        return (
+            <div className="container-challenge-heading">
+                <h1>10 challenge words. Difficulty: easy</h1>
+                <div className="challenge-container">
+                    {wordsData.map(word => <ChallengeWords key={word.id} value={word.value} points={word.points} />)}
+                </div>
+            </div>
         )
     }
 
@@ -102,9 +124,31 @@ export function Hangman() {
 
     function increaseFailRound() {
         setFailRound(keyboard.filter(key => key.correct === false).length + 1)
-        if (failRound >= 7) {
-            setKeyboard(prevKeyboard => prevKeyboard.map(key => key.correct === null ? { ...key, correct: false } : key))
+    }
+
+    function SetupNewGame() {
+        let index = 0;
+        let blankarray = []
+        while (index < wordsData.length) {
+            if (wordsData[index].points === 0) {
+                if (gamewon) {
+                    setFailRound(0)
+                    updateWordsData(wordsData[index].id, 8 - failRound)
+                    break
+                } else if (gamelost) {
+                    setFailRound(0)
+                    updateWordsData(wordsData[index].id, -1)
+                    break
+                } else {
+                    setKeyboard(generateKeyArray())
+                    blankarray = wordsData[index].value.split("").map(char => ({ value: char, display: false }))
+                    break
+                }
+            }
+            index++
         }
+        console.log("blankarray: ", blankarray)
+        return blankarray
     }
 
     function handleKeyPressed(value) {
@@ -141,11 +185,13 @@ export function Hangman() {
 
     return (
         <main>
-            {gamewon && <Confetti
+            {roundOver && <Confetti
                 width={window.innerWidth || 300}
                 height={window.innerHeight || 200}
             />}
-                {winloseheading()}
+
+            {generateChallengeDisplay()}
+            {winloseheading()}
             <div className="penalty-container">
                 {generatePenaltyList()}
             </div>
